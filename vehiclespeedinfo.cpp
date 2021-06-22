@@ -13,7 +13,8 @@ void VehicleSpeedInfo::handle(const lcm::ReceiveBuffer *rbuf, const std::string 
        return;
    }
    vehicle_speed = v.speed;
-   //qDebug() << v.speed;
+
 
    emit sigs(v.speed);
+   emit speed_int(v.speed);
 }

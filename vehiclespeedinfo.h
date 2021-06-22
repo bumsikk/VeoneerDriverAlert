@@ -14,6 +14,7 @@ public:
    void handle(const lcm::ReceiveBuffer* rbuf, const std::string &channel);
 signals:
    void sigs(double sp);
+   void speed_int(int sp);
 private:
    double vehicle_speed;
 };

@@ -15,7 +15,7 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
    }
    state = int(f.state);
    hmi_reason = int(f.hmiReason);
-   QString htja_status = "HTJA:\n"+ HTJA[state];
+   QString htja_status = HTJA[state];
 
    emit sigs_htja(htja_status);
 
@@ -62,6 +62,7 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
        emit sigs_state(s);
    }
    qDebug() << state << hmi_reason;
+
    //emit sigs_state(output);
 }
 

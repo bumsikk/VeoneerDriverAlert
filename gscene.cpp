@@ -16,15 +16,12 @@ GScene::GScene(QObject *parent) : QGraphicsScene { 0.0, 0.0, XSIZE, YSIZE, paren
     QPixmap circle("/home/local/CORP/sumaiya.ferdawsi/Documents/repos/Hud_display/icons/Ellipse 15.png");
 
     mGauge = addPixmap(circle.scaled(GScene::sceneWidth()/2,GScene::sceneHeight()-200,Qt::KeepAspectRatio));
-    //mIndicator = new GIndicator;
-    //mIndicator->mAngle= speed * 1.13;
-    //addItem(mIndicator);
+
 }
 
 void GScene::UpdateIndicator(){
     mIndicator = new GIndicator;
     mIndicator->mAngle= speed * 1.13;
     addItem(mIndicator);
-    qDebug()<<mIndicator->mAngle << "this is from gscene" << endl;
     update();
 }

@@ -9,6 +9,7 @@
 #include <QDebug>
 #include <QTransform>
 #include <QtMath>
+#include"htja_switch.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -27,6 +28,7 @@ public:
 
 public Q_SLOTS:
     void UpdateSpeed(double s);
+    void HtjaState(QString h);
 
 private slots:
     void UpdateTime();
@@ -37,5 +39,6 @@ private:
     LCM_thread *lcm_thread;
     QTimer *time;
     GScene *mScene;
+    HtjaSwitch *htjaSwitch;
 };
 #endif // MAINWINDOW_H
