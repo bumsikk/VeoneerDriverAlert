@@ -1,5 +1,6 @@
 #include "vehiclespeedinfo.h"
 #include <QDebug>
+
 VehicleSpeedInfo::VehicleSpeedInfo()
 {
    vehicle_speed = 0;

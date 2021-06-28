@@ -1,6 +1,8 @@
 #include "tjpfeaturestate.h"
 #include <QDebug>
 #include <iostream>
+
+
 TJPFeatureState::TJPFeatureState()
 {
 
@@ -13,9 +15,14 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
        qDebug()<<"failed to decode TJPFeature info "<<endl;
        return;
    }
+   prev_state = state;
    state = int(f.state);
    hmi_reason = int(f.hmiReason);
    QString htja_status = HTJA[state];
+
+   if(prev_state==state){
+       return;
+   }
 
    emit sigs_htja(htja_status);
 
@@ -32,15 +39,17 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
       hmi_reason == 17 || //hood open
       hmi_reason == 9 ){  //toll booth ahead
 
-      QPixmap takeControlAlert("/local/CORP/sumaiya.ferdawsi/Documents/repos/Hud_display/icons/takeControlAlert.png");
+      QPixmap takeControlAlert(":/pictures/icons/controlAlert.png");
       QString output = "Take Control\nConditions out of ODD\n" + message[hmi_reason];
+      emit play_alert(Alert::takeControl); //o= take control
       emit sigs_pic(takeControlAlert);
       emit sigs_state(output);
 
    }//hmi_reason that are out of oDD
    else if(hmi_reason == 1 || hmi_reason == 2){
-       QPixmap eyesOnRoadAlert("/local/CORP/sumaiya.ferdawsi/Documents/repos/Hud_display/icons/eyesOnTheRoadAlert.png");
+       QPixmap eyesOnRoadAlert(":/pictures/icons/eyesAlert.png");
        QString output = "Eyes on Road\n"+ message[hmi_reason];
+       emit play_alert(Alert::eyesOnRoad);
        emit sigs_pic(eyesOnRoadAlert);
        emit sigs_state(output);
    }//Eyes on Road
@@ -50,18 +59,20 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
            hmi_reason == 21 ||
            hmi_reason == 4 ||
            hmi_reason == 13){
-       QPixmap takeControlAlert("/local/CORP/sumaiya.ferdawsi/Documents/repos/Hud_display/icons/takeControlAlert.png");
+       QPixmap takeControlAlert(":/pictures/icons/controlAlert.png");
        QString output = "Take Control\nDangerous\n" + message[hmi_reason];
+
+       emit play_alert(Alert::takeControl);
        emit sigs_pic(takeControlAlert);
        emit sigs_state(output);
    }//hmi_reason that car is in danger
    else {
        QPixmap p; //default
        QString s; //default
+       emit play_alert(Alert::noAlert);
        emit sigs_pic(p);
        emit sigs_state(s);
    }
-   qDebug() << state << hmi_reason;
 
    //emit sigs_state(output);
 }

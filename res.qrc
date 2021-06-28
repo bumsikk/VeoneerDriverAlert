@@ -1,5 +1,14 @@
 <RCC>
     <qresource prefix="/pictures">
         <file>icons/htja.png</file>
+        <file>icons/pilotAlert.png</file>
+        <file>icons/controlAlert.png</file>
+        <file>icons/eyesAlert.png</file>
+        <file>icons/Ellipse 15.png</file>
+    </qresource>
+    <qresource prefix="/audios">
+        <file>alert_sounds/controlAlert.wav</file>
+        <file>alert_sounds/pilotAlert.wav</file>
+        <file>alert_sounds/eyeAlert.wav</file>
     </qresource>
 </RCC>

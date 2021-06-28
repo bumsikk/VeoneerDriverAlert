@@ -23,6 +23,7 @@ public:
     double speed;
 
     void UpdateIndicator();
+    void UpdatePos(int x, int y);
 
 private:
     QGraphicsPixmapItem *mGauge;

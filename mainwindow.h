@@ -5,18 +5,18 @@
 #include "lcm_thread.h"
 #include <QPainter>
 #include <QPixmap>
-#include <QDir>
-#include <QDebug>
 #include <QTransform>
 #include <QtMath>
-#include"htja_switch.h"
+#include "htja_switch.h"
+#include "tjpfeaturestate.h"
+#include "gscene.h"
+
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
 class GScene;
-
 class MainWindow : public QMainWindow
 {
     Q_OBJECT
@@ -32,6 +32,7 @@ public Q_SLOTS:
 
 private slots:
     void UpdateTime();
+    void PlayAudio(Alert alert_type);
 
 
 private:
@@ -40,5 +41,9 @@ private:
     QTimer *time;
     GScene *mScene;
     HtjaSwitch *htjaSwitch;
+    bool isAlert;
+
+    void UpdatePosition();
+
 };
 #endif // MAINWINDOW_H

@@ -1,8 +1,6 @@
 #include "gscene.h"
 #include "gindicator.h"
 #include <QGraphicsPixmapItem>
-#include <QGraphicsSceneWheelEvent>
-#include <QGraphicsSceneMouseEvent>
 #include <QDebug>
 
 #define XSIZE 500
@@ -13,10 +11,14 @@ double GScene::sHeight = YSIZE;
 
 GScene::GScene(QObject *parent) : QGraphicsScene { 0.0, 0.0, XSIZE, YSIZE, parent }
 {
-    QPixmap circle("/home/local/CORP/sumaiya.ferdawsi/Documents/repos/Hud_display/icons/Ellipse 15.png");
-
+    QPixmap circle(":/pictures/icons/Ellipse 15.png");
     mGauge = addPixmap(circle.scaled(GScene::sceneWidth()/2,GScene::sceneHeight()-200,Qt::KeepAspectRatio));
 
+}
+void GScene::UpdatePos(int x, int y){
+    mGauge->setPos(x,y);
+    if(x>0)
+        mGauge->setScale(0.50); //smaller speedometer
 }
 
 void GScene::UpdateIndicator(){
