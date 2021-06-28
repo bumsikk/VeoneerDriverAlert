@@ -25,34 +25,17 @@
 background-color: rgb(0, 0, 0);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="text_alert">
     <property name="geometry">
      <rect>
-      <x>620</x>
-      <y>70</y>
-      <width>67</width>
-      <height>17</height>
+      <x>480</x>
+      <y>110</y>
+      <width>191</width>
+      <height>81</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(193, 125, 17);</string>
-    </property>
-    <property name="text">
-     <string>TextLabel</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="label_2">
-    <property name="geometry">
-     <rect>
-      <x>560</x>
-      <y>190</y>
-      <width>91</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(193, 125, 17);
-color: rgb(85, 87, 83);</string>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
      <string>TextLabel</string>
@@ -64,7 +47,7 @@ color: rgb(85, 87, 83);</string>
       <x>60</x>
       <y>60</y>
       <width>117</width>
-      <height>32</height>
+      <height>31</height>
      </rect>
     </property>
     <property name="font">
@@ -109,7 +92,7 @@ color: rgb(85, 87, 83);</string>
     <property name="geometry">
      <rect>
       <x>240</x>
-      <y>330</y>
+      <y>340</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -161,9 +144,9 @@ color: rgb(85, 87, 83);</string>
    <widget class="QLabel" name="Speed">
     <property name="geometry">
      <rect>
-      <x>180</x>
+      <x>130</x>
       <y>320</y>
-      <width>61</width>
+      <width>101</width>
       <height>71</height>
      </rect>
     </property>
@@ -179,6 +162,19 @@ color: rgb(85, 87, 83);</string>
      <string>0</string>
     </property>
    </widget>
+   <widget class="QLabel" name="image_alert">
+    <property name="geometry">
+     <rect>
+      <x>400</x>
+      <y>290</y>
+      <width>151</width>
+      <height>111</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>TextLabel</string>
+    </property>
+   </widget>
    <zorder>graphicsView</zorder>
    <zorder>semicircle</zorder>
    <zorder>time</zorder>
@@ -186,8 +182,8 @@ color: rgb(85, 87, 83);</string>
    <zorder>unit</zorder>
    <zorder>htja_icon</zorder>
    <zorder>Speed</zorder>
-   <zorder>label</zorder>
-   <zorder>label_2</zorder>
+   <zorder>text_alert</zorder>
+   <zorder>image_alert</zorder>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">

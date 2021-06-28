@@ -7,8 +7,18 @@
 #include "generated/HMI_TjpFeatureState_INFORMATION/FeatureState.hpp"
 #include "generated/HMI_Vehicle_INFORMATION/Vehicle.hpp"
 #include <QPixmap>
+#include <QMediaPlayer>
+
 
 using namespace std;
+
+enum Alert{
+    takeControl,
+    pilotUnavailable,
+    eyesOnRoad,
+    noAlert
+};
+
 
 class TJPFeatureState : public QObject
 {
@@ -20,9 +30,13 @@ signals:
    void sigs_state(QString s); //signal for state
    void sigs_pic(QPixmap p); //for icon
    void sigs_htja(QString s); //for htja mode
+   void play_alert(Alert a);
 private:
    int state; //index of HTJA state
    int hmi_reason; //index of message vector
+   int prev_state;
+
+
 
    vector<QString> message = {
        "None",

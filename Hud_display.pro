@@ -1,5 +1,5 @@
 QT       += core gui
-#QT += quick
+QT += multimedia
 
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
@@ -8,7 +8,7 @@ CONFIG += c++11
 LIBS += -llcm
 macx {
     INCLUDEPATH += /usr/local/include
-    LIBS += -L1"/usr/local/lib"
+    LIBS += -L"/usr/local/lib"
 }
 # You can make your code fail to compile if it uses deprecated APIs.
 # In order to do so, uncomment the following line.

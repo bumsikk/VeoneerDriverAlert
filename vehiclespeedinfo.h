@@ -17,6 +17,7 @@ signals:
    void speed_int(int sp);
 private:
    double vehicle_speed;
+
 };
 
 #endif // VEHICLESPEEDINFO_H
