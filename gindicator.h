@@ -11,7 +11,7 @@ class GIndicator : public QGraphicsObject
     Q_OBJECT
 public:
     int FIRST_POS = 0;
-    GIndicator(QGraphicsItem *parent = nullptr);
+    GIndicator(bool isAlert,QGraphicsItem *parent = nullptr);
     double mAngle;
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;
@@ -20,14 +20,15 @@ private:
     int mPosition;
     GArrow *mArrow;
     GNeedle *mNeedle;
-
-
+    QPointF center;
+    int radius;
+    QPointF getFirstPoint();
     QColor getArrowColor();
     QPointF getSecondPoint(double &angle) const;
     QPointF getSecondPoint() const;
-    void fillCircle(QPainter *painter);
 
-    static QPointF sFirstPoint;
+    //static QPointF sFirstPoint;
+    QPointF sFirstPoint;
 };
 
 #endif // GINDICATOR_H

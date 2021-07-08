@@ -5,6 +5,9 @@
         <file>icons/controlAlert.png</file>
         <file>icons/eyesAlert.png</file>
         <file>icons/Ellipse 15.png</file>
+        <file>border/yAlert.png</file>
+        <file>border/rAlert.png</file>
+        <file>border/gAlert.png</file>
     </qresource>
     <qresource prefix="/audios">
         <file>alert_sounds/controlAlert.wav</file>

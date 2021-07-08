@@ -21,8 +21,8 @@ void GScene::UpdatePos(int x, int y){
         mGauge->setScale(0.50); //smaller speedometer
 }
 
-void GScene::UpdateIndicator(){
-    mIndicator = new GIndicator;
+void GScene::UpdateIndicator(bool is_alert){
+    mIndicator = new GIndicator(is_alert);
     mIndicator->mAngle= speed * 1.13;
     addItem(mIndicator);
     update();
