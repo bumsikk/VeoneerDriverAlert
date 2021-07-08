@@ -25,7 +25,11 @@ public:
 
     void setSecondPoint(const QPointF &q)
     {
-        mSecondPoint = q;
+        //mSecondPoint = q;
+        QPointF temp;
+        temp.setX(q.x()-4);
+        temp.setY(q.y());
+        mSecondPoint = temp;
     }
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr) override;

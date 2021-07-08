@@ -4,35 +4,33 @@
 #include "gneedle.h"
 #include <QPainter>
 #include <QtMath>
+#include <QDebug>
 
 
-static QPointF getFirstPoint()
+QPointF GIndicator::getFirstPoint()
 {
-    //these two check the position
-    const double sWidth = GScene::sceneWidth();
-    const double sHeight = GScene::sceneHeight()+30;
-    const double x = sWidth / 4.0;
-    const double y = sHeight / 4.0;
-    return QPointF(x, y);
+    return center;
 }
 
 
-QPointF GIndicator::sFirstPoint = getFirstPoint();
-
-GIndicator::GIndicator(QGraphicsItem *parent) : QGraphicsObject { parent }
+GIndicator::GIndicator(bool isAlert, QGraphicsItem *parent) : QGraphicsObject { parent }
 {
     mNeedle = new GNeedle(this);
     mArrow = new GArrow(this);
     mPosition = FIRST_POS;
 
+    if(isAlert){
+        center = QPointF(140,350);
+        radius = 35;
+    }
+    else{
+        center = QPointF(125,120);
+        radius = 90;
+    }
+    sFirstPoint = getFirstPoint();
+
 }
 
-
-void GIndicator::fillCircle(QPainter *painter)
-{
-    painter->setBrush(Qt::red);
-    painter->drawEllipse(sFirstPoint, 10.0, 10.0);
-}
 
 QColor GIndicator::getArrowColor()
 {
@@ -43,13 +41,12 @@ void GIndicator::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
 {
     (void) option;
     (void) widget;
-    fillCircle(painter);
     QPointF secondPoint = getSecondPoint();
-    mNeedle->setWidth(8);
+    mNeedle->setWidth(5);
     mNeedle->setColor(Qt::white);
     mNeedle->setFirstPoint(sFirstPoint);
     mNeedle->setSecondPoint(secondPoint);
-    mArrow->setSize(20.0);
+    mArrow->setSize(18.0);
     mArrow->setColor(getArrowColor());
     mArrow->setFirstPoint(sFirstPoint);
     mArrow->setSecondPoint(secondPoint);
@@ -64,8 +61,8 @@ QRectF GIndicator::boundingRect() const
 QPointF GIndicator::getSecondPoint() const
 {
     //center = 125,120... r = 95
-    double x = 125-95*cos(qDegreesToRadians(mAngle));
-    double y = 120-95*sin(qDegreesToRadians(mAngle));
+    double x = center.x()-radius*cos(qDegreesToRadians(mAngle));
+    double y = center.y()-radius*sin(qDegreesToRadians(mAngle));
     return QPointF(x,y);
 
 }

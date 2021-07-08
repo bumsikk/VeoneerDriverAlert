@@ -19,6 +19,22 @@ enum Alert{
     noAlert
 };
 
+enum HTJA{
+    Off,
+    StandBy,
+    Unavailable,
+    Available,
+    ActivationInProgress,
+    Active,
+    ReducePropulsion,
+    IntelligentStop,
+    BlindStop,
+    WheelLockinProgress,
+    DeactivationInProgress,
+    DriverCautionRequest,
+    DriverDeactivationReqeust
+};
+
 
 class TJPFeatureState : public QObject
 {
@@ -29,55 +45,45 @@ public:
 signals:
    void sigs_state(QString s); //signal for state
    void sigs_pic(QPixmap p); //for icon
-   void sigs_htja(QString s); //for htja mode
-   void play_alert(Alert a);
+   void sigs_htja(HTJA s); //for htja mode
+   void play_alert(Alert a); //play audio
 private:
    int state; //index of HTJA state
    int hmi_reason; //index of message vector
    int prev_state;
+   Alert curAlert;
 
 
 
    vector<QString> message = {
-       "None",
-       "Driver in attentive",
-       "No Lead Vehicle",
-       "No Barrier",
-       "Lane in Adequate",
-       "Lane Splitting",
-       "Lane Merging",
-       "Lane Ending",
-       "Curve Ahead",
-       "Toll Booth Ahead",
-       "Stability Control/Anti Lock Braking Activated",
-       "Tow is Enabled",
-       "Trunk is Open",
-       "Door is Open",
-       "Seatbelt Unbuckled",
-       "Parking Brake Engaged",
-       "Gear Not in Drive",
-       "Hood is Open",
-       "Above Feature Max Speed",
-       "Stability Control System Fault",
-       "System Fault Detected",
-       "Generic Faults",
+       " ",
+       "Driver inattentive",
+       "No lead vehicle",
+       "No barrier",
+       "Lane indequate",
+       "Lane splitting",
+       "Lane merging",
+       "Lane ending",
+       "Curve ahead",
+       "Toll booth ahead",
+       "Vehicle not centered in lane",
+       "Lane width too narrow or wide",
+       "Stability Control or \n Anti Lock Braking Activated",
+       "Tow is enabled",
+       "Trunk is open",
+       "Door is open",
+       "Seatbelt unbuckled",
+       "Parking brake engaged",
+       "Gear not in drive",
+       "Hood is open",
+       "Above feature max speed",
+       "Stability control system fault",
+       "System fault detected",
+       "Driver initiated deactivation",
+       "Stop and Go time expiration",
        "Driver Misuse",
+       "Accident detected",
        "Off or Standby"
-   };
-   vector<QString> HTJA = {
-       "Off",
-       "StandBy",
-       "Unavailable",
-       "Available",
-       "Activation in Progress",
-       "Active",
-       "Reduce Propulsion",
-       "Intelligent Stop",
-       "Blind Stop",
-       "Wheel Lock in Progress",
-       "Deactivation in Progress",
-       "Driver Caution Request",
-       "Driver Deactivation Reqeust"
    };
 
 };

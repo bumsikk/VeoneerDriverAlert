@@ -1,6 +1,20 @@
 #include "tjpfeaturestate.h"
-#include <QDebug>
 #include <iostream>
+
+Alert FindAlert(HTJA _state){
+    if(_state == HTJA::ReducePropulsion ||
+       _state ==HTJA::IntelligentStop ||
+       _state == HTJA::BlindStop||
+       _state == HTJA::DriverDeactivationReqeust){
+        return Alert::takeControl;}
+    else if(_state == HTJA::DriverCautionRequest){
+        return Alert::eyesOnRoad;
+    }
+    else if(_state == HTJA::Unavailable){
+        return Alert::pilotUnavailable;
+    }
+    else return Alert::noAlert;
+}
 
 
 TJPFeatureState::TJPFeatureState()
@@ -17,63 +31,57 @@ void TJPFeatureState::handle(const lcm::ReceiveBuffer *rbuf, const std::string &
    }
    prev_state = state;
    state = int(f.state);
+   int prev_hmi = hmi_reason;
    hmi_reason = int(f.hmiReason);
-   QString htja_status = HTJA[state];
+   Alert prevAlert = curAlert;
+   curAlert = FindAlert(HTJA(state));
+   //QString htja_status = HTJA[state];
 
    if(prev_state==state){
        return;
    }
 
-   emit sigs_htja(htja_status);
+   emit sigs_htja(HTJA(state));
 
-   if(hmi_reason == 16 || //gear not in drive
-      hmi_reason == 6 ||  //lane merging
-      hmi_reason == 8 ||  //road curvature ahead
-      hmi_reason == 11 || //tow is enabled
-      hmi_reason == 5 ||  //lane splitting
-      hmi_reason == 12 || //trunk is open
-      hmi_reason == 7 ||  //lane ending
-      hmi_reason == 15 || //Parking brake engaged
-      hmi_reason == 3 ||  //no adjacent barrier
-      hmi_reason == 4 ||  //lane markings not visible
-      hmi_reason == 17 || //hood open
-      hmi_reason == 9 ){  //toll booth ahead
-
-      QPixmap takeControlAlert(":/pictures/icons/controlAlert.png");
-      QString output = "Take Control\nConditions out of ODD\n" + message[hmi_reason];
-      emit play_alert(Alert::takeControl); //o= take control
-      emit sigs_pic(takeControlAlert);
-      emit sigs_state(output);
-
-   }//hmi_reason that are out of oDD
-   else if(hmi_reason == 1 || hmi_reason == 2){
-       QPixmap eyesOnRoadAlert(":/pictures/icons/eyesAlert.png");
-       QString output = "Eyes on Road\n"+ message[hmi_reason];
-       emit play_alert(Alert::eyesOnRoad);
-       emit sigs_pic(eyesOnRoadAlert);
-       emit sigs_state(output);
-   }//Eyes on Road
-   else if(hmi_reason == 10 ||
-           hmi_reason == 14 ||
-           hmi_reason == 20 ||
-           hmi_reason == 21 ||
-           hmi_reason == 4 ||
-           hmi_reason == 13){
-       QPixmap takeControlAlert(":/pictures/icons/controlAlert.png");
-       QString output = "Take Control\nDangerous\n" + message[hmi_reason];
-
-       emit play_alert(Alert::takeControl);
-       emit sigs_pic(takeControlAlert);
-       emit sigs_state(output);
-   }//hmi_reason that car is in danger
+   if(curAlert==Alert::takeControl ){
+       if(prevAlert !=curAlert){
+           QPixmap takeControlAlert(":/pictures/icons/controlAlert.png");
+           emit play_alert(Alert::takeControl);
+           emit sigs_pic(takeControlAlert);
+       }
+       if(prev_hmi != hmi_reason)
+        emit sigs_state(message[hmi_reason]);
+   }
+   else if(curAlert==Alert::eyesOnRoad){
+       if(prevAlert !=curAlert){
+           QPixmap eyesOnRoadAlert(":/pictures/icons/eyesAlert.png");
+           emit play_alert(Alert::eyesOnRoad);
+           emit sigs_pic(eyesOnRoadAlert);
+       }
+       if(prev_hmi != hmi_reason)
+        emit sigs_state(message[hmi_reason]);
+   }
+   else if(curAlert==Alert::pilotUnavailable){
+       if(prevAlert !=curAlert){
+           QPixmap pilotAlert(":/pictures/icons/pilotAlert.png");
+           emit play_alert(Alert::pilotUnavailable);
+           emit sigs_pic(pilotAlert);
+           emit sigs_state(message[hmi_reason]);
+       }
+       if(prev_hmi != hmi_reason)
+        emit sigs_state(message[hmi_reason]);
+   }
    else {
        QPixmap p; //default
        QString s; //default
        emit play_alert(Alert::noAlert);
        emit sigs_pic(p);
        emit sigs_state(s);
+
    }
 
    //emit sigs_state(output);
 }
+
+
 

@@ -28,7 +28,7 @@ public:
 
 public Q_SLOTS:
     void UpdateSpeed(double s);
-    void HtjaState(QString h);
+    void HtjaState(HTJA h);
 
 private slots:
     void UpdateTime();

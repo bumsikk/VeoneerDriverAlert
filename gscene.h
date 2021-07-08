@@ -22,13 +22,12 @@ public:
     }
     double speed;
 
-    void UpdateIndicator();
+    void UpdateIndicator(bool is_alert);
     void UpdatePos(int x, int y);
 
 private:
     QGraphicsPixmapItem *mGauge;
     GIndicator *mIndicator;
-
     static double sWidth;
     static double sHeight;
 };
