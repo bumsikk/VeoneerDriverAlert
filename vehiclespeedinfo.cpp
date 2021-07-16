@@ -13,6 +13,7 @@ void VehicleSpeedInfo::handle(const lcm::ReceiveBuffer *rbuf, const std::string 
        qDebug()<<"failed to decode Speed info "<<endl;
        return;
    }
+   v.speed = v.speed * 3.6; //1mps=3.6kph
    vehicle_speed = v.speed;
 
 
